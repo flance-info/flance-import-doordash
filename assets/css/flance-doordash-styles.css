@@ -1,0 +1,16 @@
+input.button.button-primary.stm-button {
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+.import-container {
+    display: flex;
+    align-items: center;
+}
+
+#progressBar {
+    flex: 1;
+    margin-left: 10px;
+    height: 30px;
+    max-width: 50%;
+}
