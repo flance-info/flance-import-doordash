@@ -21,12 +21,11 @@ class Flance_Import_Json_Convert {
 	}
 
 	public function processJsonFile( $jsonFilePath ) {
-		$upload_path = FLANCE_UPLOAD_PATH;
-		$jsonFilePath = $upload_path. $jsonFilePath;
+		$upload_path  = FLANCE_UPLOAD_PATH;
+		$jsonFilePath = $upload_path . $jsonFilePath;
 		if ( empty( $jsonFilePath ) ) {
 			wp_die( 'Invalid file path.' );
 		}
-
 		$this->jsonFilePath = $jsonFilePath;
 		$dataArray          = $this->readJson();
 		if ( $dataArray === false ) {
@@ -34,5 +33,19 @@ class Flance_Import_Json_Convert {
 		}
 
 		return $dataArray;
+	}
+
+	public function set_progress( $percentComplete ) {
+		$_SESSION['flance_import_progress'] = $percentComplete;
+	}
+
+	public function get_progress() {
+		return isset( $_SESSION['flance_import_progress'] ) ? $_SESSION['flance_import_progress'] : 0;
+	}
+
+	public function get_import_progress() {
+		check_ajax_referer( 'flance_ajax_nonce', 'security' );
+		$percentComplete = $this->get_progress();
+		wp_send_json_success( array( 'percent_complete' => $percentComplete ) );
 	}
 }
