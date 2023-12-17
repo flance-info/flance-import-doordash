@@ -55,3 +55,4 @@ function delete_products() {
 	}
 }
 
+//delete_products();

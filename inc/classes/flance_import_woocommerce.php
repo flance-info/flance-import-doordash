@@ -148,7 +148,7 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 			'skipped'             => array(),
 		);
 		$totalProducts    = count( $this->parsed_data );
-		$i                = 1;
+
 		foreach ( $this->parsed_data as $parsed_data_key => $parsed_data ) {
 
 
@@ -215,15 +215,20 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 					$data['imported'][] = $result['id'];
 				}
 			}
-			$index ++;
+
 			if ( $display_results ) {
+				$index ++;
 				$post_id  = $result['id'];
 				$product  = wc_get_product( $post_id );
 				$pao_data = $parsed_data['optionLists'];
 				update_post_meta( $post_id, '_wpc_pro_pao_data', $pao_data );
 				$progressPercentage = ( $index + 1 ) / $totalProducts * 100;
 				$this->set_progress( $progressPercentage );
-				$product_meta = get_post_meta( $post_id );
+				session_write_close();
+				usleep(300);
+				// Reopen the session after sleep
+				session_start();
+
 			}
 
 		}
