@@ -25,33 +25,33 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 	public function convert_process( $inputData ) {
 		$outputData = [];
 		foreach ( $inputData as $category => $items ) {
-			foreach ( $items as $item ) {
-				$itemData   = $item['data']['itemPage']['itemHeader'];
-				$optionList = [];
-				foreach ( $items as $item ) {
-					$itemData     = $item['data']['itemPage']['itemHeader'];
-					$optionList   = [];
-					$outputData[] = [
-						'type'                  => 'simple',
-						'sku'                   => $itemData['id'],
-						'name'                  => $itemData['name'],
-						'featured'              => 0,
-						'short_description'     => $itemData['description'],
-						'regular_price'         => $itemData['unitAmount'] / 100,
-						'currency'              => $itemData['currency'],
-						'category_ids'          => $this->parse_categories_field( $item['data']['itemPage']['category'] ),
-						'raw_image_id'          => $itemData['imgUrl'],
-						'raw_gallery_image_ids' => array_map( function ( $img ) {
-							return $img['url'];
-						}, $itemData['imgUrlList'] ),
-						'description'           => $itemData['description'],
-						'optionLists'           => $this->set_recomended_products( $item ),
-					];
 
-				}
+			foreach ( $items as $item ) {
+				$itemData     = $item['data']['itemPage']['itemHeader'];
+
+				$optionList   = [];
+				$outputData[] = [
+					'type'                  => 'simple',
+					'sku'                   => $itemData['id'],
+					'name'                  => $itemData['name'],
+					'featured'              => 0,
+					'short_description'     => $itemData['description'],
+					'regular_price'         => $itemData['unitAmount'] / 100,
+					'currency'              => $itemData['currency'],
+					'category_ids'          => $this->parse_categories_field( $item['data']['itemPage']['category'] ),
+					'raw_image_id'          => $itemData['imgUrl'],
+					'raw_gallery_image_ids' => array_map( function ( $img ) {
+						return $img['url'];
+					}, $itemData['imgUrlList'] ),
+					'description'           => $itemData['description'],
+					'optionLists'           => $this->set_recomended_products( $item ),
+				];
 			}
-			$this->parsed_data = $outputData;
 		}
+
+					flance_write_log(  $outputData );
+			$this->parsed_data = $outputData;
+			exit;
 	}
 
 	public function convert_process_reco( $inputData ) {
@@ -198,7 +198,7 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 				);
 				continue;
 			}
-			$result   = $this->process_item( $parsed_data );
+			$result = $this->process_item( $parsed_data );
 			if ( is_wp_error( $result ) ) {
 				$result->add_data( array( 'row' => $this->get_row_id( $parsed_data ) ) );
 				$data['failed'][] = $result;

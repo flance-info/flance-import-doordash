@@ -1,53 +1,128 @@
-2023-12-17 08:39:39 Array
+2023-12-17 09:15:42 Array
 (
-    [67665656] => Array
+    [0] => Array
         (
             [type] => simple
-            [sku] => 67665656
-            [name] => Garlic Naan
+            [sku] => 67665648
+            [name] => Murgh Chettinad
             [featured] => 0
-            [regular_price] => 4
+            [short_description] => Chicken spicy in a peppercorn & fennel chettinad sauce
+            [regular_price] => 18
             [currency] => USD
+            [category_ids] => Array
+                (
+                    [0] => 102
+                )
+
+            [raw_image_id] => 
+            [raw_gallery_image_ids] => Array
+                (
+                )
+
+            [description] => Chicken spicy in a peppercorn & fennel chettinad sauce
+            [optionLists] => Array
+                (
+                    [0] => Array
+                        (
+                            [type] => rec_product
+                            [title] => 
+                            [wpc_pro_pao_option_products] => Array
+                                (
+                                    [0] => 
+                                    [1] => 
+                                    [2] => 
+                                    [3] => 
+                                    [4] => 
+                                )
+
+                            [title_format] => label
+                            [place_holder] => 
+                            [char_limit] => 0
+                            [char_min] => 0
+                            [char_max] => 0
+                            [desc_enable] => 1
+                            [desc] => 
+                            [required] => 1
+                            [position] => 1
+                            [options] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [label] => rec
+                                            [price] => 
+                                            [price_type] => quantity_based
+                                            [default] => 0
+                                        )
+
+                                )
+
+                        )
+
+                )
+
         )
 
-    [67665661] => Array
+    [1] => Array
         (
             [type] => simple
-            [sku] => 67665661
-            [name] => Roomali Roti
+            [sku] => 67665642
+            [name] => Classic Chicken Curry
             [featured] => 0
-            [regular_price] => 8
+            [short_description] => cubes of chicken cooked in onion and tomato sauce with a hint of cream
+            [regular_price] => 18
             [currency] => USD
-        )
+            [category_ids] => Array
+                (
+                    [0] => 102
+                )
 
-    [67665671] => Array
-        (
-            [type] => simple
-            [sku] => 67665671
-            [name] => Saffron Rice
-            [featured] => 0
-            [regular_price] => 5
-            [currency] => USD
-        )
+            [raw_image_id] => https://img.cdn4dd.com/cdn-cgi/image/fit=contain,width=1200,height=672,format=auto/https://doordash-static.s3.amazonaws.com/media/photosV2/e0eda674-4238-401d-a0f9-637c1649be73-retina-large.jpg
+            [raw_gallery_image_ids] => Array
+                (
+                    [0] => https://img.cdn4dd.com/u/media/6599bef0-2e30-4a91-9cc3-06203b8b7d7f.jpg
+                )
 
-    [67665655] => Array
-        (
-            [type] => simple
-            [sku] => 67665655
-            [name] => Plain Naan
-            [featured] => 0
-            [regular_price] => 3
-            [currency] => USD
-        )
+            [description] => cubes of chicken cooked in onion and tomato sauce with a hint of cream
+            [optionLists] => Array
+                (
+                    [0] => Array
+                        (
+                            [type] => rec_product
+                            [title] => 
+                            [wpc_pro_pao_option_products] => Array
+                                (
+                                    [0] => 
+                                    [1] => 
+                                    [2] => 
+                                    [3] => 
+                                    [4] => 
+                                )
 
-    [67665660] => Array
-        (
-            [type] => simple
-            [sku] => 67665660
-            [name] => Tandoori Roti
-            [featured] => 0
-            [regular_price] => 3
-            [currency] => USD
+                            [title_format] => label
+                            [place_holder] => 
+                            [char_limit] => 0
+                            [char_min] => 0
+                            [char_max] => 0
+                            [desc_enable] => 1
+                            [desc] => 
+                            [required] => 1
+                            [position] => 1
+                            [options] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [label] => rec
+                                            [price] => 
+                                            [price_type] => quantity_based
+                                            [default] => 0
+                                        )
+
+                                )
+
+                        )
+
+                )
+
         )
 
 )

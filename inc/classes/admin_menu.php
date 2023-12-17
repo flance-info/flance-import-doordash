@@ -50,7 +50,7 @@ class Flance_Import_Admin_Menu {
 					<input type="submit" class="button button-primary stm-button" value="Convert to CSV">
 				</form>
 				<div class="import-container">
-					<button type="button" id="importToWooCommerceBtn" class="button button-primary stm-button" data-file-path="imported_file_1702741562.json">
+					<button type="button" id="importToWooCommerceBtn" class="button button-primary stm-button" data-file-path="<?php echo esc_attr( $file_path ); ?>">
 						Import to WooCommerce
 					</button>
 					<progress id="progressBar" value="0" max="100"></progress>
@@ -76,7 +76,11 @@ class Flance_Import_Admin_Menu {
 				$file_name = 'imported_file_' . time() . '.' . $file_extension;
 				$file_path = $upload_path . $file_name;
 				move_uploaded_file( $_FILES['json_file']['tmp_name'], $file_path );
+
 				set_transient( 'flance_import_doordash_file_path', $file_name, DAY_IN_SECONDS );
+				//$file_path = get_transient( 'flance_import_doordash_file_path' );
+				//echo $file_name;
+				//exit;
 				wp_redirect( admin_url( 'admin.php?page=flance_import_doordash&success=true&upload_and_convert=true' ) );
 				exit();
 			} else {
