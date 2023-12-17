@@ -15,17 +15,43 @@ function flance_doordash_enqueue_styles() {
 
 function flance_write_log( $message, $file = 'logs/logfile.log' ) {
 
-ob_start();
-		print_r( $message);
-		$message = ob_get_clean();
+	ob_start();
+	print_r( $message );
+	$message         = ob_get_clean();
 	$theme_directory = FLANCE_DOORDASH_PLUGIN_DIR;
-
 	$log_file_path = $theme_directory . '/' . $file;
-
 	$log_directory = dirname( $log_file_path );
 	if ( ! file_exists( $log_directory ) ) {
 		mkdir( $log_directory, 0755, true );
 	}
-
-	file_put_contents( $log_file_path, date( 'Y-m-d H:i:s' ) . ' ' . $message . "\n",  LOCK_EX );
+	file_put_contents( $log_file_path, date( 'Y-m-d H:i:s' ) . ' ' . $message . "\n", FILE_APPEND | LOCK_EX );
 }
+
+function delete_products() {
+
+// Get all product IDs
+	$product_ids = get_posts( array(
+		'post_type'      => 'product',
+		'posts_per_page' => - 1,
+		'fields'         => 'ids',
+	) );
+// Loop through each product and delete
+	foreach ( $product_ids as $product_id ) {
+		// Delete product
+		wp_delete_post( $product_id, true );
+		// Delete product metadata
+		delete_post_meta( $product_id, '_thumbnail_id' );
+		delete_post_meta( $product_id, '_price' );
+		// Add more metadata keys as needed
+		// Delete product media
+		$attachments = get_posts( array(
+			'post_type'      => 'attachment',
+			'posts_per_page' => - 1,
+			'post_parent'    => $product_id,
+		) );
+		foreach ( $attachments as $attachment ) {
+			wp_delete_attachment( $attachment->ID, true );
+		}
+	}
+}
+

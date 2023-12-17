@@ -1,4 +1,4 @@
-2023-12-17 09:15:42 Array
+2023-12-17 10:10:26 Array
 (
     [0] => Array
         (
@@ -25,14 +25,14 @@
                     [0] => Array
                         (
                             [type] => rec_product
-                            [title] => 
+                            [title] => Recommended Sides And Apps
                             [wpc_pro_pao_option_products] => Array
                                 (
-                                    [0] => 
-                                    [1] => 
-                                    [2] => 
-                                    [3] => 
-                                    [4] => 
+                                    [0] => 1276
+                                    [1] => 1277
+                                    [2] => 1278
+                                    [3] => 1279
+                                    [4] => 1280
                                 )
 
                             [title_format] => label
@@ -41,8 +41,8 @@
                             [char_min] => 0
                             [char_max] => 0
                             [desc_enable] => 1
-                            [desc] => 
-                            [required] => 1
+                            [desc] => Choose up to 5
+                            [required] => 
                             [position] => 1
                             [options] => Array
                                 (
@@ -88,14 +88,14 @@
                     [0] => Array
                         (
                             [type] => rec_product
-                            [title] => 
+                            [title] => Recommended Sides And Apps
                             [wpc_pro_pao_option_products] => Array
                                 (
-                                    [0] => 
-                                    [1] => 
-                                    [2] => 
-                                    [3] => 
-                                    [4] => 
+                                    [0] => 1276
+                                    [1] => 1277
+                                    [2] => 1278
+                                    [3] => 1279
+                                    [4] => 1280
                                 )
 
                             [title_format] => label
@@ -104,8 +104,8 @@
                             [char_min] => 0
                             [char_max] => 0
                             [desc_enable] => 1
-                            [desc] => 
-                            [required] => 1
+                            [desc] => Choose up to 5
+                            [required] => 
                             [position] => 1
                             [options] => Array
                                 (
