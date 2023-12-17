@@ -13,6 +13,8 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 		check_ajax_referer( 'flance_ajax_nonce', 'security' );
 		$jsonFilePath = isset( $_POST['file_path'] ) ? sanitize_text_field( $_POST['file_path'] ) : '';
 		$dataArray    = $this->processJsonFile( $jsonFilePath );
+		$this->convert_process_reco( $dataArray );
+		$results = $this->import( false );
 		$this->convert_process( $dataArray );
 		$this->set_progress( 0 );
 		$results = $this->import();
@@ -24,29 +26,118 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 		$outputData = [];
 		foreach ( $inputData as $category => $items ) {
 			foreach ( $items as $item ) {
-				$itemData = $item['data']['itemPage']['itemHeader'];
-				$outputData[] = [
-					'type'                  => 'simple',
-					'sku'                   => $itemData['id'],
-					'name'                  => $itemData['name'],
-					'featured'              => 0,
-					'short_description'     => $itemData['description'],
-					'regular_price'         => $itemData['unitAmount'] / 100,
-					'currency'              => $itemData['currency'],
-					'category_ids'          => $this->parse_categories_field( $item['data']['itemPage']['category'] ),
-					'raw_image_id'          => $itemData['imgUrl'],
-					'raw_gallery_image_ids' => array_map( function ( $img ) {
-						return $img['url'];
-					}, $itemData['imgUrlList'] ),
-					'description'           => $itemData['description'],
+				$itemData   = $item['data']['itemPage']['itemHeader'];
+				$optionList = [];
+				foreach ( $items as $item ) {
+					$itemData     = $item['data']['itemPage']['itemHeader'];
+					$optionList   = [];
+					$outputData[] = [
+						'type'                  => 'simple',
+						'sku'                   => $itemData['id'],
+						'name'                  => $itemData['name'],
+						'featured'              => 0,
+						'short_description'     => $itemData['description'],
+						'regular_price'         => $itemData['unitAmount'] / 100,
+						'currency'              => $itemData['currency'],
+						'category_ids'          => $this->parse_categories_field( $item['data']['itemPage']['category'] ),
+						'raw_image_id'          => $itemData['imgUrl'],
+						'raw_gallery_image_ids' => array_map( function ( $img ) {
+							return $img['url'];
+						}, $itemData['imgUrlList'] ),
+						'description'           => $itemData['description'],
+						'optionLists'           => $this->set_recomended_products( $item ),
+					];
+
+				}
+			}
+			$this->parsed_data = $outputData;
+		}
+	}
+
+	public function convert_process_reco( $inputData ) {
+		$outputDataReco = [];
+		foreach ( $inputData as $category => $items ) {
+			foreach ( $items as $item ) {
+				$itemData   = $item['data']['itemPage']['itemHeader'];
+				$optionList = [];
+				if ( $item['data']['itemPage']['optionLists'] ) {
+					$recomded_products_sku = [];
+					foreach ( $item['data']['itemPage']['optionLists'] as $optionList ) {
+						if ( $optionList['type'] === 'item' ) {
+							$options = $optionList['options'];
+							foreach ( $options as $option ) {
+								$outputDataReco[ $option['id'] ] = [
+									'type'          => 'simple',
+									'sku'           => $option['id'],
+									'name'          => $option['name'],
+									'featured'      => 0,
+									'regular_price' => $option['unitAmount'] / 100,
+									'currency'      => $itemData['currency'],
+								];
+								$recomded_products_sku[]         = $option['id'];
+							}
+						}
+					}
+				}
+			}
+		}
+		$this->parsed_data = $outputDataReco;
+	}
+
+	public function set_recomended_products( $item ) {
+		$itemData   = $item['data']['itemPage']['itemHeader'];
+		$optionList = [];
+		if ( $item['data']['itemPage']['optionLists'] ) {
+			$recomded_products_id = [];
+			foreach ( $item['data']['itemPage']['optionLists'] as $optionList ) {
+				if ( $optionList['type'] === 'item' ) {
+					$options = $optionList['options'];
+					foreach ( $options as $option ) {
+						$outputData[]           = [
+							'type'          => 'simple',
+							'sku'           => $option['id'],
+							'name'          => $option['name'],
+							'featured'      => 0,
+							'regular_price' => $option['unitAmount'] / 100,
+							'currency'      => $itemData['currency'],
+						];
+						$recomded_products_id[] = ( wc_get_product_id_by_sku( $option['id'] ) ) ? wc_get_product_id_by_sku( $option['id'] ) : null;
+
+					}
+				}
+			}
+			if ( $optionList['type'] === 'item' ) {
+				$optionList = [
+					[
+						'type'                        => 'rec_product',
+						'title'                       => $item['data']['itemPage']['optionLists']['name'],
+						'wpc_pro_pao_option_products' => $recomded_products_id,
+						'title_format'                => 'label',
+						'place_holder'                => '',
+						'char_limit'                  => 0,
+						'char_min'                    => 0,
+						'char_max'                    => 0,
+						'desc_enable'                 => 1,
+						'desc'                        => $item['data']['itemPage']['optionLists']['subtitle'],
+						'required'                    => ! $item['data']['itemPage']['optionLists']['isOptional'],
+						'position'                    => 1,
+						'options'                     => [
+							[
+								'label'      => 'rec',
+								'price'      => '',
+								'price_type' => 'quantity_based',
+								'default'    => 0,
+							],
+						],
+					],
 				];
 			}
 		}
-		flance_write_log( $outputData );
-		$this->parsed_data = $outputData;
+
+		return $optionList;
 	}
 
-	public function import() {
+	public function import( $display_results = true ) {
 		$this->start_time = time();
 		$index            = 0;
 		$update_existing  = true;
@@ -107,7 +198,7 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 				);
 				continue;
 			}
-			$result = $this->process_item( $parsed_data );
+			$result   = $this->process_item( $parsed_data );
 			if ( is_wp_error( $result ) ) {
 				$result->add_data( array( 'row' => $this->get_row_id( $parsed_data ) ) );
 				$data['failed'][] = $result;
@@ -121,20 +212,26 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 				}
 			}
 			$index ++;
-			$success            = true;
-			$message            = $success ? 'Product created successfully' : 'Failed to create product';
-			$progressPercentage = ( $index + 1 ) / $totalProducts * 100;
-			$this->set_progress( $progressPercentage );
+			if ( $display_results ) {
+				$post_id  = $result['id'];
+				$product  = wc_get_product( $post_id );
+				$pao_data = $parsed_data['optionLists'];
+				$product->update_meta_data( '_wpc_pro_pao_data', $pao_data );
+				$progressPercentage = ( $index + 1 ) / $totalProducts * 100;
+				$this->set_progress( $progressPercentage );
+			}
 			if ( $this->params['prevent_timeouts'] && ( $this->time_exceeded() || $this->memory_exceeded() ) ) {
 
 				break;
 			}
 			break;
 		}
-		$success         = true;
-		$message         = $success ? 'Product created successfully' : 'Failed to create product';
-		$data['success'] = $success;
-		$data['message'] = $message;
+		if ( $display_results ) {
+			$success         = true;
+			$message         = $success ? 'Product created successfully' : 'Failed to create product';
+			$data['success'] = $success;
+			$data['message'] = $message;
+		}
 
 		return $data;
 	}
@@ -142,4 +239,5 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 }
 
 
-$importWooCommerce = new Flance_Import_Woocommerce();
+$importWooCommerce
+	= new Flance_Import_Woocommerce();

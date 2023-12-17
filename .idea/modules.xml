@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/flance-import-doordash.iml" filepath="$PROJECT_DIR$/.idea/flance-import-doordash.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../flance-woocommerce-quick-view/.idea/flance-woocommerce-quick-view.iml" filepath="$PROJECT_DIR$/../flance-woocommerce-quick-view/.idea/flance-woocommerce-quick-view.iml" />
       <module fileurl="file://$PROJECT_DIR$/../woocommerce/.idea/woocommerce.iml" filepath="$PROJECT_DIR$/../woocommerce/.idea/woocommerce.iml" />
     </modules>
   </component>
