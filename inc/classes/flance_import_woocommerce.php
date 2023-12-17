@@ -11,23 +11,45 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 
 	public function handle_import_to_woocommerce() {
 		check_ajax_referer( 'flance_ajax_nonce', 'security' );
-		$jsonFilePath  = isset( $_POST['file_path'] ) ? sanitize_text_field( $_POST['file_path'] ) : '';
-		$dataArray     = $this->processJsonFile( $jsonFilePath );
-		$totalProducts = count( $dataArray );
+		$jsonFilePath = isset( $_POST['file_path'] ) ? sanitize_text_field( $_POST['file_path'] ) : '';
+		$dataArray    = $this->processJsonFile( $jsonFilePath );
+		$this->convert_process( $dataArray );
 		$this->set_progress( 0 );
-		$this->import();
-		$results = array(
-			'success' => $success,
-			'data'    => [ 'message' => $message ],
-		);
+		$results = $this->import();
 		wp_send_json( $results );
 		wp_die();
+	}
+
+	public function convert_process( $inputData ) {
+		$outputData = [];
+		foreach ( $inputData as $category => $items ) {
+			foreach ( $items as $item ) {
+				$itemData = $item['data']['itemPage']['itemHeader'];
+				$outputData[] = [
+					'type'                  => 'simple',
+					'sku'                   => $itemData['id'],
+					'name'                  => $itemData['name'],
+					'featured'              => 0,
+					'short_description'     => $itemData['description'],
+					'regular_price'         => $itemData['unitAmount'] / 100,
+					'currency'              => $itemData['currency'],
+					'category_ids'          => $this->parse_categories_field( $item['data']['itemPage']['category'] ),
+					'raw_image_id'          => $itemData['imgUrl'],
+					'raw_gallery_image_ids' => array_map( function ( $img ) {
+						return $img['url'];
+					}, $itemData['imgUrlList'] ),
+					'description'           => $itemData['description'],
+				];
+			}
+		}
+		flance_write_log( $outputData );
+		$this->parsed_data = $outputData;
 	}
 
 	public function import() {
 		$this->start_time = time();
 		$index            = 0;
-		$update_existing  = $this->params['update_existing'];
+		$update_existing  = true;
 		$data             = array(
 			'imported'            => array(),
 			'imported_variations' => array(),
@@ -104,10 +126,15 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 			$progressPercentage = ( $index + 1 ) / $totalProducts * 100;
 			$this->set_progress( $progressPercentage );
 			if ( $this->params['prevent_timeouts'] && ( $this->time_exceeded() || $this->memory_exceeded() ) ) {
-				$this->file_position = $this->file_positions[ $index ];
+
 				break;
 			}
+			break;
 		}
+		$success         = true;
+		$message         = $success ? 'Product created successfully' : 'Failed to create product';
+		$data['success'] = $success;
+		$data['message'] = $message;
 
 		return $data;
 	}

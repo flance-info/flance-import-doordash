@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6e19d487-d993-4d7e-967b-6982bbe3d9ce" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inc/classes/flance_import_woocommerce.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/classes/flance_import_woocommerce.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/helpers.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +39,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702787785460</updated>
-      <workItem from="1702787797525" duration="3664000" />
+      <workItem from="1702787797525" duration="9433000" />
     </task>
     <servers />
   </component>
