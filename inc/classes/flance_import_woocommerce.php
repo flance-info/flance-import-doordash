@@ -27,7 +27,7 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 		foreach ( $inputData as $category => $items ) {
 
 			foreach ( $items as $item ) {
-				$itemData = $item['data']['itemPage']['itemHeader'];
+				$itemData     = $item['data']['itemPage']['itemHeader'];
 				$optionList   = [];
 				$outputData[] = [
 					'type'                  => 'simple',
@@ -47,7 +47,6 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 				];
 			}
 		}
-
 		$this->parsed_data = $outputData;
 	}
 
@@ -78,7 +77,6 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 				}
 			}
 		}
-
 		$this->parsed_data = $outputDataReco;
 	}
 
@@ -91,7 +89,7 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 				if ( $optionList['type'] === 'item' ) {
 					$options = $optionList['options'];
 					foreach ( $options as $option ) {
-						$outputData[]           = [
+						$outputData[] = [
 							'type'          => 'simple',
 							'sku'           => $option['id'],
 							'name'          => $option['name'],
@@ -99,7 +97,6 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 							'regular_price' => $option['unitAmount'] / 100,
 							'currency'      => $itemData['currency'],
 						];
-
 						$recomded_products_id[] = ( wc_get_product_id_by_sku( $option['id'] ) ) ? wc_get_product_id_by_sku( $option['id'] ) : null;
 
 					}
@@ -116,10 +113,10 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 							'char_limit'                  => 0,
 							'char_min'                    => 0,
 							'char_max'                    => 0,
+							'position'                    => 0,
 							'desc_enable'                 => 1,
 							'desc'                        => $optionList['subtitle'],
 							'required'                    => ! $optionList['isOptional'],
-							'position'                    => 1,
 							'options'                     => [
 								[
 									'label'      => 'rec',
@@ -151,7 +148,7 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 			'skipped'             => array(),
 		);
 		$totalProducts    = count( $this->parsed_data );
-		$i=1;
+		$i                = 1;
 		foreach ( $this->parsed_data as $parsed_data_key => $parsed_data ) {
 
 
@@ -164,13 +161,11 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 				$product   = wc_get_product( $id );
 				$id_exists = $product && 'importing' !== $product->get_status();
 			}
-
 			if ( $sku ) {
 				$id_from_sku = wc_get_product_id_by_sku( $sku );
 				$product     = $id_from_sku ? wc_get_product( $id_from_sku ) : false;
 				$sku_exists  = $product && 'importing' !== $product->get_status();
 			}
-
 			if ( $id_exists && ! $update_existing ) {
 				$data['skipped'][] = new WP_Error(
 					'woocommerce_product_importer_error',
@@ -182,7 +177,6 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 				);
 				continue;
 			}
-
 			if ( $sku_exists && ! $update_existing ) {
 				$data['skipped'][] = new WP_Error(
 					'woocommerce_product_importer_error',
@@ -194,7 +188,6 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 				);
 				continue;
 			}
-
 			if ( $update_existing && ( isset( $parsed_data['id'] ) || isset( $parsed_data['sku'] ) ) && ! $id_exists && ! $sku_exists ) {
 
 				$data['skipped'][] = new WP_Error(
@@ -209,9 +202,7 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 
 				//continue;
 			}
-
 			$result = $this->process_item( $parsed_data );
-
 			if ( is_wp_error( $result ) ) {
 				$result->add_data( array( 'row' => $this->get_row_id( $parsed_data ) ) );
 				$data['failed'][] = $result;
@@ -224,15 +215,15 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 					$data['imported'][] = $result['id'];
 				}
 			}
-
 			$index ++;
 			if ( $display_results ) {
 				$post_id  = $result['id'];
 				$product  = wc_get_product( $post_id );
 				$pao_data = $parsed_data['optionLists'];
-				$product->update_meta_data( '_wpc_pro_pao_data', $pao_data );
+				update_post_meta( $post_id, '_wpc_pro_pao_data', $pao_data );
 				$progressPercentage = ( $index + 1 ) / $totalProducts * 100;
 				$this->set_progress( $progressPercentage );
+				$product_meta = get_post_meta( $post_id );
 			}
 
 		}

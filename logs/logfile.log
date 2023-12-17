@@ -1,128 +1,252 @@
-2023-12-17 10:10:26 Array
+2023-12-17 10:40:31 Array
 (
-    [0] => Array
+    [_sku] => Array
         (
-            [type] => simple
-            [sku] => 67665648
-            [name] => Murgh Chettinad
-            [featured] => 0
-            [short_description] => Chicken spicy in a peppercorn & fennel chettinad sauce
-            [regular_price] => 18
-            [currency] => USD
-            [category_ids] => Array
-                (
-                    [0] => 102
-                )
-
-            [raw_image_id] => 
-            [raw_gallery_image_ids] => Array
-                (
-                )
-
-            [description] => Chicken spicy in a peppercorn & fennel chettinad sauce
-            [optionLists] => Array
-                (
-                    [0] => Array
-                        (
-                            [type] => rec_product
-                            [title] => Recommended Sides And Apps
-                            [wpc_pro_pao_option_products] => Array
-                                (
-                                    [0] => 1276
-                                    [1] => 1277
-                                    [2] => 1278
-                                    [3] => 1279
-                                    [4] => 1280
-                                )
-
-                            [title_format] => label
-                            [place_holder] => 
-                            [char_limit] => 0
-                            [char_min] => 0
-                            [char_max] => 0
-                            [desc_enable] => 1
-                            [desc] => Choose up to 5
-                            [required] => 
-                            [position] => 1
-                            [options] => Array
-                                (
-                                    [0] => Array
-                                        (
-                                            [label] => rec
-                                            [price] => 
-                                            [price_type] => quantity_based
-                                            [default] => 0
-                                        )
-
-                                )
-
-                        )
-
-                )
-
+            [0] => 67665648
         )
 
-    [1] => Array
+    [_regular_price] => Array
         (
-            [type] => simple
-            [sku] => 67665642
-            [name] => Classic Chicken Curry
-            [featured] => 0
-            [short_description] => cubes of chicken cooked in onion and tomato sauce with a hint of cream
-            [regular_price] => 18
-            [currency] => USD
-            [category_ids] => Array
-                (
-                    [0] => 102
-                )
+            [0] => 18
+        )
 
-            [raw_image_id] => https://img.cdn4dd.com/cdn-cgi/image/fit=contain,width=1200,height=672,format=auto/https://doordash-static.s3.amazonaws.com/media/photosV2/e0eda674-4238-401d-a0f9-637c1649be73-retina-large.jpg
-            [raw_gallery_image_ids] => Array
-                (
-                    [0] => https://img.cdn4dd.com/u/media/6599bef0-2e30-4a91-9cc3-06203b8b7d7f.jpg
-                )
+    [total_sales] => Array
+        (
+            [0] => 0
+        )
 
-            [description] => cubes of chicken cooked in onion and tomato sauce with a hint of cream
-            [optionLists] => Array
-                (
-                    [0] => Array
-                        (
-                            [type] => rec_product
-                            [title] => Recommended Sides And Apps
-                            [wpc_pro_pao_option_products] => Array
-                                (
-                                    [0] => 1276
-                                    [1] => 1277
-                                    [2] => 1278
-                                    [3] => 1279
-                                    [4] => 1280
-                                )
+    [_tax_status] => Array
+        (
+            [0] => taxable
+        )
 
-                            [title_format] => label
-                            [place_holder] => 
-                            [char_limit] => 0
-                            [char_min] => 0
-                            [char_max] => 0
-                            [desc_enable] => 1
-                            [desc] => Choose up to 5
-                            [required] => 
-                            [position] => 1
-                            [options] => Array
-                                (
-                                    [0] => Array
-                                        (
-                                            [label] => rec
-                                            [price] => 
-                                            [price_type] => quantity_based
-                                            [default] => 0
-                                        )
+    [_tax_class] => Array
+        (
+            [0] => 
+        )
 
-                                )
+    [_manage_stock] => Array
+        (
+            [0] => no
+        )
 
-                        )
+    [_backorders] => Array
+        (
+            [0] => no
+        )
 
-                )
+    [_sold_individually] => Array
+        (
+            [0] => no
+        )
 
+    [_virtual] => Array
+        (
+            [0] => no
+        )
+
+    [_downloadable] => Array
+        (
+            [0] => no
+        )
+
+    [_download_limit] => Array
+        (
+            [0] => -1
+        )
+
+    [_download_expiry] => Array
+        (
+            [0] => -1
+        )
+
+    [_thumbnail_id] => Array
+        (
+            [0] => 0
+        )
+
+    [_stock] => Array
+        (
+            [0] => 
+        )
+
+    [_stock_status] => Array
+        (
+            [0] => instock
+        )
+
+    [_wc_average_rating] => Array
+        (
+            [0] => 0
+        )
+
+    [_wc_review_count] => Array
+        (
+            [0] => 0
+        )
+
+    [_product_version] => Array
+        (
+            [0] => 8.0.3
+        )
+
+    [_price] => Array
+        (
+            [0] => 18
+        )
+
+    [ekit_post_views_count] => Array
+        (
+            [0] => 4
+        )
+
+    [_wpc_pro_pao_data] => Array
+        (
+            [0] => a:1:{i:0;a:13:{s:4:"type";s:11:"rec_product";s:5:"title";s:26:"Recommended Sides And Apps";s:27:"wpc_pro_pao_option_products";a:5:{i:0;i:1276;i:1;i:1277;i:2;i:1278;i:3;i:1279;i:4;i:1280;}s:12:"title_format";s:5:"label";s:12:"place_holder";s:0:"";s:10:"char_limit";i:0;s:8:"char_min";i:0;s:8:"char_max";i:0;s:8:"position";i:0;s:11:"desc_enable";i:1;s:4:"desc";s:14:"Choose up to 5";s:8:"required";b:0;s:7:"options";a:1:{i:0;a:4:{s:5:"label";s:3:"rec";s:5:"price";s:0:"";s:10:"price_type";s:14:"quantity_based";s:7:"default";i:0;}}}}
+        )
+
+)
+
+2023-12-17 10:40:31 Array
+(
+    [_sku] => Array
+        (
+            [0] => 67665642
+        )
+
+    [_regular_price] => Array
+        (
+            [0] => 18
+        )
+
+    [total_sales] => Array
+        (
+            [0] => 0
+        )
+
+    [_tax_status] => Array
+        (
+            [0] => taxable
+        )
+
+    [_tax_class] => Array
+        (
+            [0] => 
+        )
+
+    [_manage_stock] => Array
+        (
+            [0] => no
+        )
+
+    [_backorders] => Array
+        (
+            [0] => no
+        )
+
+    [_sold_individually] => Array
+        (
+            [0] => no
+        )
+
+    [_virtual] => Array
+        (
+            [0] => no
+        )
+
+    [_downloadable] => Array
+        (
+            [0] => no
+        )
+
+    [_product_image_gallery] => Array
+        (
+            [0] => 1283
+        )
+
+    [_download_limit] => Array
+        (
+            [0] => -1
+        )
+
+    [_download_expiry] => Array
+        (
+            [0] => -1
+        )
+
+    [_thumbnail_id] => Array
+        (
+            [0] => 1282
+        )
+
+    [_stock] => Array
+        (
+            [0] => 
+        )
+
+    [_stock_status] => Array
+        (
+            [0] => instock
+        )
+
+    [_wc_average_rating] => Array
+        (
+            [0] => 0
+        )
+
+    [_wc_review_count] => Array
+        (
+            [0] => 0
+        )
+
+    [_product_version] => Array
+        (
+            [0] => 8.0.3
+        )
+
+    [_price] => Array
+        (
+            [0] => 18
+        )
+
+    [_edit_lock] => Array
+        (
+            [0] => 1702809477:1
+        )
+
+    [_edit_last] => Array
+        (
+            [0] => 1
+        )
+
+    [_wpc_pro_pao_data] => Array
+        (
+            [0] => a:1:{i:0;a:13:{s:4:"type";s:11:"rec_product";s:5:"title";s:26:"Recommended Sides And Apps";s:27:"wpc_pro_pao_option_products";a:5:{i:0;i:1276;i:1;i:1277;i:2;i:1278;i:3;i:1279;i:4;i:1280;}s:12:"title_format";s:5:"label";s:12:"place_holder";s:0:"";s:10:"char_limit";i:0;s:8:"char_min";i:0;s:8:"char_max";i:0;s:8:"position";i:0;s:11:"desc_enable";i:1;s:4:"desc";s:14:"Choose up to 5";s:8:"required";b:0;s:7:"options";a:1:{i:0;a:4:{s:5:"label";s:3:"rec";s:5:"price";s:0:"";s:10:"price_type";s:14:"quantity_based";s:7:"default";i:0;}}}}
+        )
+
+    [_wcpa_product_meta] => Array
+        (
+            [0] => a:0:{}
+        )
+
+    [wcpa_exclude_global_forms] => Array
+        (
+            [0] => 
+        )
+
+    [wpc_pro_preparing_time] => Array
+        (
+            [0] => 
+        )
+
+    [wpc_pro_delivery_time] => Array
+        (
+            [0] => 
+        )
+
+    [ekit_post_views_count] => Array
+        (
+            [0] => 4
         )
 
 )
