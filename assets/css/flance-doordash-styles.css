@@ -1,4 +1,4 @@
-input.button.button-primary.stm-button {
+button.button-primary.stm-button {
     width: 200px;
     margin-bottom: 10px;
 }
@@ -6,6 +6,7 @@ input.button.button-primary.stm-button {
 .import-container {
     display: flex;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 #progressBar {
@@ -13,4 +14,25 @@ input.button.button-primary.stm-button {
     margin-left: 10px;
     height: 30px;
     max-width: 50%;
+}
+#progressBarCsv {
+    flex: 1;
+    margin-left: 10px;
+    height: 30px;
+    max-width: 50%;
+}
+
+.download-flance {
+    width: 200px;
+    margin-left: 20px;
+    background: #72aee6;
+    color: white;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+}
+.download-flance a {
+    color: white;
+    text-align: center;
+    font-weight: bold;
 }

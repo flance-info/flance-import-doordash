@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6e19d487-d993-4d7e-967b-6982bbe3d9ce" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/inc/classes/flance_import_csv.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/classes/flance_import_woocommerce.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/classes/flance_import_woocommerce.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/helpers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/flance-doordash-styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/flance-doordash-styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/flance-doordash-script.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/flance-doordash-script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/classes/admin_menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/classes/admin_menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/loader.php" beforeDir="false" afterPath="$PROJECT_DIR$/inc/loader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/logfile.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/logfile.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../flance-woocommerce-quick-view/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/../flance-woocommerce-quick-view/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../flance-woocommerce-quick-view/.idea/flance-woocommerce-quick-view.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../flance-woocommerce-quick-view/.idea/flance-woocommerce-quick-view.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../flance-woocommerce-quick-view/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../flance-woocommerce-quick-view/.idea/modules.xml" afterDir="false" />
@@ -28,15 +32,17 @@
     <option name="showMembers" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/inc/classes" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\domains\localhost\upwork\scraper\citruscuisine\wp-content\plugins\flance-import-doordash\inc\classes" />
       <recent name="C:\Users\Rusty\Downloads" />
     </key>
   </component>
@@ -48,11 +54,25 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702787785460</updated>
-      <workItem from="1702787797525" duration="22921000" />
+      <workItem from="1702787797525" duration="27371000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

@@ -43,12 +43,14 @@ class Flance_Import_Admin_Menu {
 			if ( isset( $_GET['upload_and_convert'] ) && $_GET['upload_and_convert'] === 'true' ) {
 				$file_path = get_transient( 'flance_import_doordash_file_path' );
 				?>
-				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-					<?php wp_nonce_field( 'flance_import_doordash_nonce', 'flance_import_doordash_nonce' ); ?>
-					<input type="hidden" name="action" value="flance_convert_to_csv">
-					<input type="hidden" name="file_path" value="<?php echo esc_attr( $file_path ); ?>">
-					<input type="submit" class="button button-primary stm-button" value="Convert to CSV">
-				</form>
+
+				<div class="import-container">
+					<button type="button" id="importToCsvBtn" class="button button-primary stm-button" data-file-path="<?php echo esc_attr( $file_path ); ?>">
+						Convert to CSV
+					</button>
+					<progress id="progressBarCsv" value="0" max="100"></progress>
+					<div class="download-flance"><a href="#">Download Csv file </a></div>
+				</div>
 				<div class="import-container">
 					<button type="button" id="importToWooCommerceBtn" class="button button-primary stm-button" data-file-path="<?php echo esc_attr( $file_path ); ?>">
 						Import to WooCommerce
