@@ -19,21 +19,33 @@ function flance_write_log( $message, $file = 'logs/logfile.log' ) {
 	print_r( $message );
 	$message         = ob_get_clean();
 	$theme_directory = FLANCE_DOORDASH_PLUGIN_DIR;
-	$log_file_path = $theme_directory . '/' . $file;
-	$log_directory = dirname( $log_file_path );
+	$log_file_path   = $theme_directory . '/' . $file;
+	$log_directory   = dirname( $log_file_path );
 	if ( ! file_exists( $log_directory ) ) {
 		mkdir( $log_directory, 0755, true );
 	}
-	file_put_contents( $log_file_path, date( 'Y-m-d H:i:s' ) . ' ' . $message . "\n", FILE_APPEND | LOCK_EX );
+	file_put_contents( $log_file_path, date( 'Y-m-d H:i:s' ) . ' ' . $message . "\n",  LOCK_EX );
 }
 
 function delete_products() {
-
+$today = getdate();
 // Get all product IDs
 	$product_ids = get_posts( array(
 		'post_type'      => 'product',
 		'posts_per_page' => - 1,
 		'fields'         => 'ids',
+		'fields'         => 'ids',
+		'date_query'     => array(
+			array(
+				'year'    => $today['year'],
+				'month'   => $today['mon'],
+				'day'     => $today['mday'],
+				'hour'    => 0,
+				'minute'  => 0,
+				'second'  => 0,
+				'compare' => '>=', // Posts created on or after today
+			),
+		),
 	) );
 // Loop through each product and delete
 	foreach ( $product_ids as $product_id ) {
