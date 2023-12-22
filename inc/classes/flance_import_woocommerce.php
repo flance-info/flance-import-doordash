@@ -1,6 +1,7 @@
 <?php
-
+//ini_set('display_errors', 1);error_reporting(E_ALL);
 class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
+
 	public function __construct() {
 		add_action( 'wp_ajax_flance_import_to_woocommerce', array( $this, 'handle_import_to_woocommerce' ) );
 		add_action( 'wp_ajax_get_import_progress', array( $this, 'get_import_progress' ) );
@@ -11,8 +12,10 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 
 	public function handle_import_to_woocommerce() {
 		check_ajax_referer( 'flance_ajax_nonce', 'security' );
-		$jsonFilePath = isset( $_POST['file_path'] ) ? sanitize_text_field( $_POST['file_path'] ) : '';
-		$dataArray    = $this->processJsonFile( $jsonFilePath );
+		$jsonFilePath          = isset( $_POST['file_path'] ) ? sanitize_text_field( $_POST['file_path'] ) : '';
+		$this->parsed_data_key = isset( $_POST['parsed_data_key'] ) ? sanitize_text_field( $_POST['parsed_data_key'] ) : 0;
+		$this->set_parsed_data_key();
+		$dataArray = $this->processJsonFile( $jsonFilePath );
 		$this->convert_process_reco( $dataArray );
 		$this->import( false );
 		$this->convert_process( $dataArray );
@@ -149,9 +152,12 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 			'skipped'             => array(),
 		);
 		$totalProducts    = count( $this->parsed_data );
+		$limit            = 10;
+		$i                = 0;
 		foreach ( $this->parsed_data as $parsed_data_key => $parsed_data ) {
-
-
+			if ( $parsed_data_key <= $this->get_parsed_data_key() && $display_results ) {
+				continue;
+			}
 			do_action( 'woocommerce_product_import_before_import', $parsed_data );
 			try {
 				$id         = isset( $parsed_data['id'] ) ? absint( $parsed_data['id'] ) : 0;
@@ -204,8 +210,6 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 					//continue;
 				}
 				$result = $this->process_item( $parsed_data );
-				$result = true;
-				flance_write_log( $parsed_data, 'logs/process_item_parced_data.log' );
 				if ( is_wp_error( $result ) ) {
 					$result->add_data( array( 'row' => $this->get_row_id( $parsed_data ) ) );
 					$data['failed'][] = $result;
@@ -220,33 +224,49 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 				}
 				if ( $display_results ) {
 					$index ++;
+					$i ++;
 					$post_id  = $result['id'];
 					$product  = wc_get_product( $post_id );
 					$pao_data = $parsed_data['optionLists'];
 					update_post_meta( $post_id, '_wpc_pro_pao_data', $pao_data );
-					$progressPercentage = ( $index + 1 ) / $totalProducts * 100;
+					$progressPercentage    = ( $parsed_data_key + 2 ) / $totalProducts * 100;
+					$this->parsed_data_key = $parsed_data_key;
 					$this->set_progress( $progressPercentage );
 					//	session_write_close();
 					//	usleep(300);
 					// Reopen the session after sleep
 					//	session_start();
 				}
+				unset( $id, $sku, $id_exists, $sku_exists, $product, $result );
 			} catch ( Exception $e ) {
-				// Log any unexpected exceptions
-				$error_message = 'Exception: ' . $e->getMessage();
-				error_log( $error_message );
+				$error_message    = 'Exception: ' . $e->getMessage();
 				$data['failed'][] = new WP_Error( 'woocommerce_product_importer_error', $error_message );
 			}
-			if ( ( $this->time_exceeded() || $this->memory_exceeded() ) ) {
-
+			if ( $display_results && $i >= $limit ) {
+				$this->parsed_data_key = $parsed_data_key;
+				flance_write_log( $this->get_parsed_data_key(), 'logs/parsed_data_key.log' );
+				break;
+			}
+			if ( $this->time_exceeded() || $this->memory_exceeded() ) {
+				flance_write_log( 'exceeded', 'logs/exceeded.log' );
 				break;
 			}
 		}
+		unset( $this->parsed_data );
 		if ( $display_results ) {
-			$success         = true;
-			$message         = $success ? 'Product created successfully' : 'Failed to create product';
-			$data['success'] = $success;
-			$data['message'] = $message;
+			$has_more_data             = $this->parsed_data_key < $totalProducts - 1;
+
+			$success                   = true;
+			$message                   = $success ? 'Product created successfully' : 'Failed to create product';
+			$data['success']           = $success;
+			$data['message']           = $message;
+			$data['parsed_data_key']   = $this->get_parsed_data_key();
+			$data['totalProducts']     = $totalProducts;
+			$data['data']              = array(
+				'percent_complete'  => $this->get_progress(),
+				'hasMoreData'       => $has_more_data,
+				'nextParsedDataKey' => $this->parsed_data_key + 1,
+			);
 		}
 
 		return $data;

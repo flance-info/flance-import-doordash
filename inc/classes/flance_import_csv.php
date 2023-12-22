@@ -25,27 +25,27 @@ class Flance_Import_Csv extends Flance_Import_Json_Convert {
 	public function convert_process( $inputData ) {
 		$outputData = [];
 		foreach ( $inputData as $category => $items ) {
-
-			foreach ( $items as $item ) {
-				$itemData     = $item['data']['itemPage']['itemHeader'];
-				$optionList   = [];
-				$images = array_map( function ( $img ) {
+			if ( ! empty( $items ) && is_array( $items ) ) {
+				foreach ( $items as $item ) {
+					$itemData     = $item['data']['itemPage']['itemHeader'];
+					$optionList   = [];
+					$images       = array_map( function ( $img ) {
 						return $img['url'];
 					}, $itemData['imgUrlList'] );
-
-				$outputData[] = [
-					'type'                  => 'simple',
-					'sku'                   => $itemData['id'],
-					'name'                  => $itemData['name'],
-					'featured'              => 0,
-					'short_description'     => $itemData['description'],
-					'regular_price'         => $itemData['unitAmount'] / 100,
-					'currency'              => $itemData['currency'],
-					'category_ids'          =>  $item['data']['itemPage']['category'] ,
-					'Images'          => $itemData['imgUrl'].','.implode(',', $images),
-					'description'           => $itemData['description'],
-					'optionLists'           => json_encode($this->set_recomended_products( $item )),
-				];
+					$outputData[] = [
+						'type'              => 'simple',
+						'sku'               => $itemData['id'],
+						'name'              => $itemData['name'],
+						'featured'          => 0,
+						'short_description' => $itemData['description'],
+						'regular_price'     => $itemData['unitAmount'] / 100,
+						'currency'          => $itemData['currency'],
+						'category_ids'      => $item['data']['itemPage']['category'],
+						'Images'            => $itemData['imgUrl'] . ',' . implode( ',', $images ),
+						'description'       => $itemData['description'],
+						'optionLists'       => json_encode( $this->set_recomended_products( $item ) ),
+					];
+				}
 			}
 		}
 		flance_write_log( $outputData, 'logs/csvoutputdata.log');
@@ -171,7 +171,7 @@ class Flance_Import_Csv extends Flance_Import_Json_Convert {
 			}
 
 		}
-		fclose( $csvFile );
+		if (!empty($csvFile) ) fclose( $csvFile );
 		$success         = true;
 		$message         = $success ? 'Product created successfully' : 'Failed to create product';
 		$data['success'] = $success;
