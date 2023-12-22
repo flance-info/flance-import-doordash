@@ -152,7 +152,7 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 			'skipped'             => array(),
 		);
 		$totalProducts    = count( $this->parsed_data );
-		$limit            = 10;
+		$limit            = 2;
 		$i                = 0;
 		foreach ( $this->parsed_data as $parsed_data_key => $parsed_data ) {
 			if ( $parsed_data_key <= $this->get_parsed_data_key() && $display_results ) {
@@ -251,6 +251,7 @@ class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 				flance_write_log( 'exceeded', 'logs/exceeded.log' );
 				break;
 			}
+
 		}
 		unset( $this->parsed_data );
 		if ( $display_results ) {
