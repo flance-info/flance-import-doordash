@@ -3,7 +3,7 @@ include_once WC_ABSPATH . 'includes/import/class-wc-product-csv-importer.php';
 if (class_exists('WC_Product_CSV_Importer')) {
 	class Flance_Import_Json_Convert extends WC_Product_CSV_Importer {
 		protected $jsonFilePath;
-
+		public $parsed_data_key = 0;
 		public function __construct( $jsonFilePath ) {
 			$this->jsonFilePath = $jsonFilePath;
 		}
@@ -38,10 +38,18 @@ if (class_exists('WC_Product_CSV_Importer')) {
 
 		public function set_progress( $percentComplete ) {
 			$_SESSION['flance_import_progress'] = $percentComplete;
+			$_SESSION['parsed_data_key'] = $this->parsed_data_key;
+		}
+		public function set_parsed_data_key() {
+			$_SESSION['parsed_data_key'] = $this->parsed_data_key;
 		}
 
 		public function get_progress() {
 			return isset( $_SESSION['flance_import_progress'] ) ? $_SESSION['flance_import_progress'] : 0;
+		}
+
+		public function get_parsed_data_key() {
+			return isset( $_SESSION['parsed_data_key'] ) ? $_SESSION['parsed_data_key'] : 0;
 		}
 
 		public function get_import_progress() {

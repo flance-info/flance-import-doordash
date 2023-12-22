@@ -1,0 +1,54 @@
+2023-12-22 16:06:21 Array
+(
+    [67665656] => Array
+        (
+            [type] => simple
+            [sku] => 67665656
+            [name] => Garlic Naan
+            [featured] => 0
+            [regular_price] => 4
+            [currency] => USD
+        )
+
+    [67665661] => Array
+        (
+            [type] => simple
+            [sku] => 67665661
+            [name] => Roomali Roti
+            [featured] => 0
+            [regular_price] => 8
+            [currency] => USD
+        )
+
+    [67665671] => Array
+        (
+            [type] => simple
+            [sku] => 67665671
+            [name] => Saffron Rice
+            [featured] => 0
+            [regular_price] => 5
+            [currency] => USD
+        )
+
+    [67665655] => Array
+        (
+            [type] => simple
+            [sku] => 67665655
+            [name] => Plain Naan
+            [featured] => 0
+            [regular_price] => 3
+            [currency] => USD
+        )
+
+    [67665660] => Array
+        (
+            [type] => simple
+            [sku] => 67665660
+            [name] => Tandoori Roti
+            [featured] => 0
+            [regular_price] => 3
+            [currency] => USD
+        )
+
+)
+

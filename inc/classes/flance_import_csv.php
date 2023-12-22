@@ -14,7 +14,7 @@ class Flance_Import_Csv extends Flance_Import_Json_Convert {
 		$jsonFilePath = isset( $_POST['file_path'] ) ? sanitize_text_field( $_POST['file_path'] ) : '';
 		$dataArray    = $this->processJsonFile( $jsonFilePath );
 		$this->convert_process_reco( $dataArray );
-		$results = $this->import( false );
+		$this->import( false );
 		$this->convert_process( $dataArray );
 		$this->set_progress( 0 );
 		$results = $this->import();
@@ -48,31 +48,33 @@ class Flance_Import_Csv extends Flance_Import_Json_Convert {
 				];
 			}
 		}
-		flance_write_log( $outputData);
+		flance_write_log( $outputData, 'logs/csvoutputdata.log');
 		$this->parsed_data = $outputData;
 	}
 
 	public function convert_process_reco( $inputData ) {
 		$outputDataReco = [];
 		foreach ( $inputData as $category => $items ) {
-			foreach ( $items as $item ) {
-				$itemData   = $item['data']['itemPage']['itemHeader'];
-				$optionList = [];
-				if ( $item['data']['itemPage']['optionLists'] ) {
-					$recomded_products_sku = [];
-					foreach ( $item['data']['itemPage']['optionLists'] as $optionList ) {
-						if ( $optionList['type'] === 'item' ) {
-							$options = $optionList['options'];
-							foreach ( $options as $option ) {
-								$outputDataReco[ $option['id'] ] = [
-									'type'          => 'simple',
-									'sku'           => $option['id'],
-									'name'          => $option['name'],
-									'featured'      => 0,
-									'regular_price' => $option['unitAmount'] / 100,
-									'currency'      => $itemData['currency'],
-								];
-								$recomded_products_sku[]         = $option['id'];
+			if (!empty($items) && is_array($items)) {
+				foreach ( $items as $item ) {
+					$itemData   = $item['data']['itemPage']['itemHeader'];
+					$optionList = [];
+					if ( $item['data']['itemPage']['optionLists'] ) {
+						$recomded_products_sku = [];
+						foreach ( $item['data']['itemPage']['optionLists'] as $optionList ) {
+							if ( $optionList['type'] === 'item' ) {
+								$options = $optionList['options'];
+								foreach ( $options as $option ) {
+									$outputDataReco[ $option['id'] ] = [
+										'type'          => 'simple',
+										'sku'           => $option['id'],
+										'name'          => $option['name'],
+										'featured'      => 0,
+										'regular_price' => $option['unitAmount'] / 100,
+										'currency'      => $itemData['currency'],
+									];
+									$recomded_products_sku[]         = $option['id'];
+								}
 							}
 						}
 					}
