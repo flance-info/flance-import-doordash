@@ -3,7 +3,7 @@
 class Flance_Import_Woocommerce extends Flance_Import_Json_Convert {
 
 	public function __construct() {
-		add_action( 'admin_post_flance_import_to_woocommerce', array( $this, 'handle_import_to_woocommerce' ) );
+		//add_action( 'admin_post_flance_import_to_woocommerce', array( $this, 'handle_import_to_woocommerce' ) );
 	}
 
 	public function handle_import_to_woocommerce() {

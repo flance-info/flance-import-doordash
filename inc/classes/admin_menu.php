@@ -5,7 +5,7 @@ class Flance_Import_Admin_Menu {
 		add_action( 'admin_menu', array( $this, 'add_menu' ) );
 		add_action( 'admin_post_flance_import_doordash', array( $this, 'handle_import_doordash' ) );
 		add_action( 'admin_post_flance_convert_to_csv', array( $this, 'handle_convert_to_csv' ) );
-		add_action( 'admin_post_flance_import_to_woocommerce', array( $this, 'handle_import_to_woocommerce' ) );
+		//add_action( 'admin_post_flance_import_to_woocommerce', array( $this, 'handle_import_to_woocommerce' ) );
 	}
 
 	public function add_menu() {
